@@ -1,0 +1,96 @@
+var startX = 18; // X's beginning position
+var startY = 21; //Y's beginning position
+var gapX = width/14; //between space of array's argument
+var gapY = height/16; //between space of subArray
+var styleY = height/35; //addition disagn for line's y position
+var styleX = width/59; //addition disagn for line's X position
+
+var displayArray = function(array) {
+    textFont(createFont("monospace"), 12);
+    fill(0, 255, 68);
+    for(var i = 0; i < array.length; i++){
+        text(array[i], startX + (i*gapX), startY);
+    }   
+    
+    startY += gapY;
+};
+var swap = function(array, firstIndex, secondIndex) {
+    var temp = array[firstIndex];
+    array[firstIndex] = array[secondIndex];
+    array[secondIndex] = temp;
+    line(
+        startX + styleX + secondIndex * gapX, //beginning of line as swaping index
+        startY - gapY,                        //swapping Index's old y position
+        startX + styleX + firstIndex * gapX, //finishing of line as swapped index
+        startY - styleY);                    //swapped index's new y position
+};
+
+var indexOfMinimum = function(array, startIndex) {
+
+    var minValue = array[startIndex];
+    var minIndex = startIndex;
+
+    for(var i = minIndex + 1; i < array.length; i++) {
+        if(array[i] < minValue) {
+            minIndex = i;
+            minValue = array[i];
+        }
+        
+        
+    } 
+    return minIndex;
+}; 
+
+var selectionSort = function(array) {
+     
+    //we searced through the array length for the minimum number
+    for(var i = 0; i < array.length; i++){
+        //we saved the minimum number as index
+        var minimumNum = indexOfMinimum(array, i);
+        //we swapt the selectNumber with minimumNumber on index
+        swap(array, i, minimumNum);
+        
+        
+        //print the displayArray
+        displayArray(array);
+    }
+};
+
+// top left
+var array = [22,11,99,88,9];
+displayArray(array);
+array = selectionSort(array);
+
+
+//creating 3 more array for sorted
+//few values and same
+array = [11,11,11,11];
+startX = width/1.9;
+startY = height/16;
+gapX = width/10.7;
+gapY = width / 12.9;
+displayArray(array);
+selectionSort(array);
+
+//bottom left
+//reverse sorted
+array = [10,9,8,7,6,5,4,3];
+startX = width/29.4;
+startY = height/2.0;
+gapX = width/18.7;
+gapY = height/19.6;
+styleX = height/94.5;
+displayArray(array);
+selectionSort(array);
+
+//bottom right
+//one values is out of order
+array = [-25, -12, 2, 0, 5, 9];
+startX = width/1.9;
+startY = height/1.9;
+gapX = width/11.8;
+gapY = height/15.2;
+styleX = gapX/8.1;
+displayArray(array);
+selectionSort(array);
+
